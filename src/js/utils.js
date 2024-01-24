@@ -14,4 +14,8 @@ export const addTodoController = (text) => {
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
+  // Hacer visible cuando exista alguna tarea o todo
+  const $todoContainer = document.querySelector(".todoapp-wrapper");
+  if ($todoContainer.classList.contains("inactive"))
+    $todoContainer.classList.remove("inactive");
 };
