@@ -1,5 +1,11 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+import { addTodoController } from "./js/utils";
 
-console.log(sayHello("Hello"));
+const $newTodo = document.querySelector(".new-todo");
+$newTodo.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    addTodoController(e.target.value);
+    e.target.value = "";
+  }
+});
