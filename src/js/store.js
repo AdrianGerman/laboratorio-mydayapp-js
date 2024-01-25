@@ -1,5 +1,9 @@
 export const TODOS = [];
 
+export const getTodo = (id) => {
+  return TODOS.find((TODO) => TODO.id == id);
+};
+
 export const addTodo = (text) => {
   const newTodo = {
     id: Date.now(),
