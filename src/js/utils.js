@@ -42,13 +42,16 @@ export const addTodoController = (text) => {
 };
 
 export const updateTodoText = (todoId, text) => {
-  // Actualizar TODO global
-  updateTodo(todoId, { text });
+  // Validacion de texto
+  const newTodoText = text.trim();
+  if (!newTodoText) return;
+  // Actualiza TODO en el estado global
+  updateTodo(todoId, { text: newTodoText });
   // Actualizar TODO en el HTML y deshabilita modo edición
   const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
   const $todoLabel = $todoContainer.querySelector(`label`);
   const $todoEditInput = $todoContainer.querySelector(`input.edit`);
-  $todoLabel.innerHTML = text;
+  $todoLabel.innerHTML = newTodoText;
   $todoEditInput.blur();
 };
 
