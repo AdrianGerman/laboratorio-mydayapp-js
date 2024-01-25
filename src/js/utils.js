@@ -5,12 +5,15 @@ export const addTodoController = (text) => {
   // Validacion de texto
   const newTodoText = text.trim();
   if (!newTodoText) return;
+
   // Agrega TODO al estado global
   const newTodo = addTodo(newTodoText);
+
   // Creacion de nodo
   const $todoElement = document.createElement(null);
   const todoTemplate = todoTemplateCreator(newTodo);
   $todoElement.innerHTML = todoTemplate;
+
   //Agregando eventos
   const $todoStatusCheckbox = $todoElement.querySelector("input.toggle");
   const $todoLabel = $todoElement.querySelector("label");
@@ -25,13 +28,28 @@ export const addTodoController = (text) => {
   $todoEditInput.addEventListener("focusout", () =>
     disableTodoEditMode(newTodo.id)
   );
+  $todoEditInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") updateTodoText(newTodo.id, e.target.value);
+  });
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
+
   // Hacer visible cuando exista alguna tarea o todo
   const $todoContainer = document.querySelector(".todoapp-wrapper");
   if ($todoContainer.classList.contains("inactive"))
     $todoContainer.classList.remove("inactive");
+};
+
+export const updateTodoText = (todoId, text) => {
+  // Actualizar TODO global
+  updateTodo(todoId, { text });
+  // Actualizar TODO en el HTML y deshabilita modo edición
+  const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
+  const $todoLabel = $todoContainer.querySelector(`label`);
+  const $todoEditInput = $todoContainer.querySelector(`input.edit`);
+  $todoLabel.innerHTML = text;
+  $todoEditInput.blur();
 };
 
 export const updateTodoStatus = (todoId, isCompleted) => {
