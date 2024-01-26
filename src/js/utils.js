@@ -1,17 +1,10 @@
 import { TODOS, getTodo, addTodo, updateTodo, deleteTodo } from "./store";
 import { todoTemplateCreator, todoCounterTemplateCreator } from "./templates";
 
-export const addTodoController = (text) => {
-  // Validacion de texto
-  const newTodoText = text.trim();
-  if (!newTodoText) return;
-
-  // Agrega TODO al estado global
-  const newTodo = addTodo(newTodoText);
-
+export const renderTodo = (TODO) => {
   // Creacion de nodo
   const $todoElement = document.createElement(null);
-  const todoTemplate = todoTemplateCreator(newTodo);
+  const todoTemplate = todoTemplateCreator(TODO);
   $todoElement.innerHTML = todoTemplate;
 
   //Agregando eventos
@@ -21,21 +14,19 @@ export const addTodoController = (text) => {
   const $todoDeleteButton = $todoElement.querySelector("button.destroy");
 
   $todoStatusCheckbox.addEventListener("change", (e) =>
-    updateTodoStatus(newTodo.id, e.target.checked)
+    updateTodoStatus(TODO.id, e.target.checked)
   );
 
-  $todoLabel.addEventListener("dblclick", () =>
-    activateTodoEditMode(newTodo.id)
-  );
+  $todoLabel.addEventListener("dblclick", () => activateTodoEditMode(TODO.id));
   $todoEditInput.addEventListener("focusout", () =>
-    disableTodoEditMode(newTodo.id)
+    disableTodoEditMode(TODO.id)
   );
   $todoEditInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") updateTodoText(newTodo.id, e.target.value);
+    if (e.key === "Enter") updateTodoText(TODO.id, e.target.value);
     if (e.key === "Escape") $todoEditInput.blur();
   });
   $todoDeleteButton.addEventListener("click", () =>
-    deleteTodoController(newTodo.id)
+    deleteTodoController(TODO.id)
   );
 
   // Agrega nodo al HTML
@@ -49,6 +40,16 @@ export const addTodoController = (text) => {
   const $todosContainer = document.querySelector(".todoapp-wrapper");
   if ($todosContainer.classList.contains("inactive"))
     $todosContainer.classList.remove("inactive");
+};
+
+export const addTodoController = (text) => {
+  // validación de texto
+  const newTodoText = text.trim();
+  if (!newTodoText) return;
+  // Agregar todo al estado global
+  const newTodo = addTodo(newTodoText);
+  // Renderizar TODO
+  renderTodo(newTodo);
 };
 
 export const deleteTodoController = (todoId) => {
