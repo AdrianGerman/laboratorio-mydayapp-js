@@ -1,5 +1,5 @@
-import { getTodo, addTodo, updateTodo } from "./store";
-import { todoTemplateCreator } from "./templates";
+import { TODOS, getTodo, addTodo, updateTodo } from "./store";
+import { todoTemplateCreator, todoCounterTemplateCreator } from "./templates";
 
 export const addTodoController = (text) => {
   // Validacion de texto
@@ -37,6 +37,9 @@ export const addTodoController = (text) => {
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
 
+  //Actualizar contador de TODOS
+  updateTodoCounter();
+
   // Hacer visible cuando exista alguna tarea o todo
   const $todoContainer = document.querySelector(".todoapp-wrapper");
   if ($todoContainer.classList.contains("inactive"))
@@ -64,6 +67,13 @@ export const updateTodoStatus = (todoId, isCompleted) => {
   const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
   if (isCompleted) $todoContainer.classList.add("completed");
   else $todoContainer.classList.remove("completed");
+};
+
+export const updateTodoCounter = () => {
+  // Plantilla HTML
+  const $todoCounterLabel = document.querySelector(".todo-count");
+  const todoCounterTemplate = todoCounterTemplateCreator(TODOS.length);
+  $todoCounterLabel.innerHTML = todoCounterTemplate;
 };
 
 export const activateTodoEditMode = (todoId) => {
