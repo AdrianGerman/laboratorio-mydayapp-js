@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { addTodoController } from "./js/utils";
+import { addTodoController, deleteCompletedTodos } from "./js/utils";
 
 const $newTodo = document.querySelector(".new-todo");
 $newTodo.addEventListener("keydown", (e) => {
@@ -9,3 +9,6 @@ $newTodo.addEventListener("keydown", (e) => {
     e.target.value = "";
   }
 });
+
+const $clearCompletedTodosButton = document.querySelector(".clear-completed");
+$clearCompletedTodosButton.addEventListener("click", deleteCompletedTodos);

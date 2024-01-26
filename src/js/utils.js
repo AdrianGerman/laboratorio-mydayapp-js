@@ -66,6 +66,11 @@ export const deleteTodoController = (todoId) => {
   updateTodoCounter();
 };
 
+export const deleteCompletedTodos = () => {
+  const completedTodos = TODOS.filter((TODO) => TODO.completed);
+  completedTodos.forEach((TODO) => deleteTodoController(TODO.id));
+};
+
 export const updateTodoText = (todoId, text) => {
   // Validacion de texto
   const newTodoText = text.trim();
