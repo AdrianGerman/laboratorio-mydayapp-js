@@ -1,4 +1,4 @@
-import { TODOS, getTodo, addTodo, updateTodo } from "./store";
+import { TODOS, getTodo, addTodo, updateTodo, deleteTodo } from "./store";
 import { todoTemplateCreator, todoCounterTemplateCreator } from "./templates";
 
 export const addTodoController = (text) => {
@@ -18,6 +18,8 @@ export const addTodoController = (text) => {
   const $todoStatusCheckbox = $todoElement.querySelector("input.toggle");
   const $todoLabel = $todoElement.querySelector("label");
   const $todoEditInput = $todoElement.querySelector("input.edit");
+  const $todoDeleteButton = $todoElement.querySelector("button.destroy");
+
   $todoStatusCheckbox.addEventListener("change", (e) =>
     updateTodoStatus(newTodo.id, e.target.checked)
   );
@@ -32,6 +34,9 @@ export const addTodoController = (text) => {
     if (e.key === "Enter") updateTodoText(newTodo.id, e.target.value);
     if (e.key === "Escape") $todoEditInput.blur();
   });
+  $todoDeleteButton.addEventListener("click", () =>
+    deleteTodoController(newTodo.id)
+  );
 
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
@@ -41,9 +46,24 @@ export const addTodoController = (text) => {
   updateTodoCounter();
 
   // Hacer visible cuando exista alguna tarea o todo
-  const $todoContainer = document.querySelector(".todoapp-wrapper");
-  if ($todoContainer.classList.contains("inactive"))
-    $todoContainer.classList.remove("inactive");
+  const $todosContainer = document.querySelector(".todoapp-wrapper");
+  if ($todosContainer.classList.contains("inactive"))
+    $todosContainer.classList.remove("inactive");
+};
+
+export const deleteTodoController = (todoId) => {
+  //Eliminar todo del estado global
+  deleteTodo(todoId);
+  // Eliminar elemento HTML al todo correspondiente
+  const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
+  $todoContainer.remove();
+
+  //Ocultar contenedor HTML (cuandos se borran todas las tareas)
+  const $todosContainer = document.querySelector(".todoapp-wrapper");
+  if (TODOS.length == 0) $todosContainer.classList.add("inactive");
+
+  //Actualizar contador de TODOS
+  updateTodoCounter();
 };
 
 export const updateTodoText = (todoId, text) => {
