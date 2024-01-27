@@ -4,6 +4,8 @@ import {
   renderTodo,
   addTodoController,
   deleteCompletedTodos,
+  // visibilidad del boton "clear completed"
+  visibilityToClearCompleteTodos,
 } from "./js/utils";
 
 (function loadData() {
@@ -20,3 +22,4 @@ $newTodo.addEventListener("keydown", (e) => {
 
 const $clearCompletedTodosButton = document.querySelector(".clear-completed");
 $clearCompletedTodosButton.addEventListener("click", deleteCompletedTodos);
+visibilityToClearCompleteTodos();

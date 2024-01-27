@@ -50,6 +50,8 @@ export const addTodoController = (text) => {
   const newTodo = addTodo(newTodoText);
   // Renderizar TODO
   renderTodo(newTodo);
+  // visibilidad del boton "clear completed"
+  visibilityToClearCompleteTodos();
 };
 
 export const deleteTodoController = (todoId) => {
@@ -65,6 +67,9 @@ export const deleteTodoController = (todoId) => {
 
   //Actualizar contador de TODOS
   updateTodoCounter();
+
+  // visibilidad del boton "clear completed"
+  visibilityToClearCompleteTodos();
 };
 
 export const deleteCompletedTodos = () => {
@@ -93,6 +98,8 @@ export const updateTodoStatus = (todoId, isCompleted) => {
   const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
   if (isCompleted) $todoContainer.classList.add("completed");
   else $todoContainer.classList.remove("completed");
+  // visibilidad del boton "clear completed"
+  visibilityToClearCompleteTodos();
 };
 
 export const updateTodoCounter = () => {
@@ -117,4 +124,12 @@ export const disableTodoEditMode = (todoId) => {
   // Modificando estilos de HTML
   const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
   $todoContainer.classList.remove("editing");
+};
+
+export const visibilityToClearCompleteTodos = () => {
+  const $clearCompletedTodosButton = document.querySelector(".clear-completed");
+  const completedTodos = TODOS.filter((TODO) => TODO.completed);
+  if (completedTodos.length == 0)
+    $clearCompletedTodosButton.classList.add("inactive");
+  else $clearCompletedTodosButton.classList.remove("inactive");
 };
