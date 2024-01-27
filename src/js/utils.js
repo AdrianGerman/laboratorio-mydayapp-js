@@ -100,12 +100,15 @@ export const updateTodoStatus = (todoId, isCompleted) => {
   else $todoContainer.classList.remove("completed");
   // visibilidad del boton "clear completed"
   visibilityToClearCompleteTodos();
+  //Actualizar contador de TODOS
+  updateTodoCounter();
 };
 
 export const updateTodoCounter = () => {
   // Plantilla HTML
   const $todoCounterLabel = document.querySelector(".todo-count");
-  const todoCounterTemplate = todoCounterTemplateCreator(TODOS.length);
+  const pendingTodos = TODOS.filter((TODO) => !TODO.completed);
+  const todoCounterTemplate = todoCounterTemplateCreator(pendingTodos.length);
   $todoCounterLabel.innerHTML = todoCounterTemplate;
 };
 
