@@ -141,3 +141,23 @@ export const visibilityToClearCompleteTodos = () => {
     $clearCompletedTodosButton.classList.add("inactive");
   else $clearCompletedTodosButton.classList.remove("inactive");
 };
+
+export const setFilterLinkActive = () => {
+  // Aplicar estilos a la ruta activa
+  let islinkActivated = false;
+  const $filterLinks = Array.from(document.querySelectorAll(".filters a"));
+  $filterLinks.forEach(($link) => {
+    if ($link.href == location.href) {
+      islinkActivated = true;
+      $link.classList.add("selected");
+    } else {
+      $link.classList.remove("selected");
+    }
+  });
+
+  // se establece una ruta por defecto
+  if (!islinkActivated) {
+    const $linkByDefault = document.querySelector(".filters a[href='#/']");
+    $linkByDefault.classList.add("selected");
+  }
+};

@@ -4,10 +4,17 @@ import {
   addTodoController,
   deleteCompletedTodos,
   visibilityToClearCompleteTodos,
+  setFilterLinkActive,
 } from "./js/utils";
 
-window.addEventListener("DOMContentLoaded", router);
-window.addEventListener("hashchange", router);
+window.addEventListener("DOMContentLoaded", () => {
+  router();
+  setFilterLinkActive();
+});
+window.addEventListener("hashchange", () => {
+  router();
+  setFilterLinkActive();
+});
 
 const $newTodo = document.querySelector(".new-todo");
 $newTodo.addEventListener("keydown", (e) => {
