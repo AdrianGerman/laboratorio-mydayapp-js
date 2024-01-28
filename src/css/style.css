@@ -408,15 +408,19 @@ html .clear-completed:active {
 }
 
 @media screen and (max-width: 580px) {
-  .header h1,
-  .header p {
+  .header {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
 
   .header h1 + p {
     padding-bottom: 2rem;
+  }
+
+  .todoapp-wrapper {
+    margin: 10px;
   }
 }
