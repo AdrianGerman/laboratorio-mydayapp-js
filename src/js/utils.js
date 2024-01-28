@@ -33,13 +33,18 @@ export const renderTodo = (TODO) => {
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
 
-  //Actualizar contador de TODOS
-  updateTodoCounter();
-
   // Hacer visible cuando exista alguna tarea o todo
   const $todosContainer = document.querySelector(".todoapp-wrapper");
   if ($todosContainer.classList.contains("inactive"))
     $todosContainer.classList.remove("inactive");
+
+  //Actualizar contador de TODOS
+  updateTodoCounter();
+};
+
+export const renderTodos = (TODOS) => {
+  document.querySelector(".todo-list").innerHTML = "";
+  TODOS.forEach((TODO) => renderTodo(TODO));
 };
 
 export const addTodoController = (text) => {

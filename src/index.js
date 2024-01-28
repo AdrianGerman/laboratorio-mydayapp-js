@@ -1,16 +1,13 @@
 import "./css/base.css";
-import { TODOS } from "./js/store";
+import { router } from "./js/router";
 import {
-  renderTodo,
   addTodoController,
   deleteCompletedTodos,
-  // visibilidad del boton "clear completed"
   visibilityToClearCompleteTodos,
 } from "./js/utils";
 
-(function loadData() {
-  TODOS.forEach((TODO) => renderTodo(TODO));
-})();
+window.addEventListener("DOMContentLoaded", router);
+window.addEventListener("hashchange", router);
 
 const $newTodo = document.querySelector(".new-todo");
 $newTodo.addEventListener("keydown", (e) => {
