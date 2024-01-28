@@ -1,4 +1,5 @@
-import "./css/base.css";
+// import "./css/base.css";
+import "./css/style.css";
 import { router } from "./js/router";
 import {
   addTodoController,
