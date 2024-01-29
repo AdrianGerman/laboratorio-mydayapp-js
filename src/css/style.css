@@ -420,7 +420,20 @@ html .clear-completed:active {
     padding-bottom: 2rem;
   }
 
+  .new-todo,
+  .edit {
+    width: 90%;
+  }
+
   .todoapp-wrapper {
     margin: 10px;
+  }
+
+  .todo-list li {
+    font-size: 16px;
+  }
+
+  .footer {
+    font-size: 12px;
   }
 }
